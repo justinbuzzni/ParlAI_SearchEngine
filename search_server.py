@@ -66,8 +66,12 @@ def _parse_host(host):
 
 
 def _get_content(url):
-    resp = requests.get(url)
-    page = resp.content
+    try:
+        resp = requests.get(url)
+        page = resp.content
+    except Exception as e:
+        print(e)
+        return {'content':''}
 
     soup = bs4.BeautifulSoup(page, features="lxml")
     pre_rendered = soup.find("title")
